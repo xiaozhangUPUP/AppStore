@@ -44,12 +44,23 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 
     public void requestDatas() {
         model.getApps()
-                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ProgressSubscriber<PageBean<AppInfo>>(context, view) {
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
                         view.showResult(appInfoPageBean.getDatas());
                     }
                 });
+
+
+        //        model.getApps()
+        //                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
+        //                .subscribe(new ProgressSubscriber<PageBean<AppInfo>>(context, view) {
+        //                    @Override
+        //                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+        //                        view.showResult(appInfoPageBean.getDatas());
+        //                    }
+        //                });
     }
 }

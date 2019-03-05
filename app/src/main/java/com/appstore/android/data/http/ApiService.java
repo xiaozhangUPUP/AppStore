@@ -11,6 +11,10 @@ import rx.Observable;
 public interface ApiService {
     public static final String BASE_URL = "http://112.124.22.238:8081/course_api/cniaoplay/";
 
-    @GET("featured2")
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
+    //    @GET("featured2")
+    //    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
+
+
+    @GET("featured")
+    public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
 }
