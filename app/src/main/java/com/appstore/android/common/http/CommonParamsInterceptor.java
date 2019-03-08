@@ -1,6 +1,7 @@
 package com.appstore.android.common.http;
 
 import android.content.Context;
+import android.content.Entity;
 
 import com.appstore.android.common.Constants;
 import com.appstore.android.common.util.DeviceUtils;
@@ -8,7 +9,10 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -37,20 +41,46 @@ public class CommonParamsInterceptor implements Interceptor {
 
         if ("GET".equals(method)) {
             HttpUrl httpUrl = request.url();
-            String oldParamJson = httpUrl.queryParameter(Constants.PARAM);
-            HashMap<String, Object> rootMap = gson.fromJson(oldParamJson, HashMap.class);  //original datas
+
+            Set<String> paramNames = httpUrl.queryParameterNames();
+            HashMap<String, Object> rootMap = new HashMap<>();
+
+            for (String key : paramNames) {
+                // p={}&pag=&
+                if (Constants.PARAM.equals(key)) {
+                    String oldParamJson = httpUrl.queryParameter(Constants.PARAM);
+                    if (oldParamJson != null) {
+                        HashMap<String, Object> p = gson.fromJson(oldParamJson, HashMap.class);  //original datas
+                        if (p != null) {
+                            for (Map.Entry<String, Object> entry : p.entrySet()) {
+                                rootMap.put(entry.getKey(), entry.getValue());
+                            }
+                        }
+                    }
+                } else {
+                    rootMap.put(key, httpUrl.queryParameter(key));
+                }
+
+            }
+
             rootMap.put("publicParams", commonParamsMap);  //重新组装
 
             String newParamJson = gson.toJson(rootMap);
 
             String url = httpUrl.toString();
-            url = url.substring(0, (url.indexOf("?") + 1)) + Constants.PARAM + "=" + newParamJson;
+            int index = url.indexOf("?");
+            if (index > 0) {
+                url = url.substring(0, index);
+            }
+            url = url + "?" + Constants.PARAM + "=" + newParamJson;
 
             request = request.newBuilder().url(url).build();
 
         } else if ("POST".equals(method)) {
 
+
         }
+
         return chain.proceed(request);
     }
 
