@@ -2,6 +2,7 @@ package com.appstore.android.data.http;
 
 import com.appstore.android.bean.AppInfo;
 import com.appstore.android.bean.BaseBean;
+import com.appstore.android.bean.IndexBean;
 import com.appstore.android.bean.PageBean;
 import com.appstore.android.bean.requestbean.LoginRequestBean;
 
@@ -23,4 +24,7 @@ public interface ApiService {
 
     @POST("login")
     public Observable<BaseBean> login(@Body LoginRequestBean requestBean);
+
+    @GET("index")
+    public  Observable<BaseBean<IndexBean>> index();
 }

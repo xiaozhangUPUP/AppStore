@@ -2,6 +2,7 @@ package com.appstore.android.data;
 
 import com.appstore.android.bean.AppInfo;
 import com.appstore.android.bean.BaseBean;
+import com.appstore.android.bean.IndexBean;
 import com.appstore.android.bean.PageBean;
 import com.appstore.android.data.http.ApiService;
 
@@ -32,4 +33,9 @@ public class RecommendModel {
         return apiService.getApps("{'page':0}");
 
     }
+
+    public Observable<BaseBean<IndexBean>> index() {
+        return apiService.index();
+    }
+
 }

@@ -19,11 +19,13 @@ import com.appstore.android.MyApplication;
 import com.appstore.android.R;
 import com.appstore.android.bean.AppInfo;
 
+import com.appstore.android.bean.IndexBean;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.di.component.DaggerRecommendComponent;
 import com.appstore.android.di.module.RecommendModule;
 import com.appstore.android.presenter.RecommendPresenter;
 import com.appstore.android.presenter.contract.RecommendContract;
+import com.appstore.android.ui.adapter.IndexMultiAdapter;
 import com.appstore.android.ui.adapter.RecommendAppAdapter;
 
 import java.util.List;
@@ -65,13 +67,13 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
         presenter.requestDatas();
     }
 
-    private void initRecycler(List<AppInfo> datas) {
+    private void initRecycler(IndexBean datas) {
 
         recommendRecyclerview.setLayoutManager(new LinearLayoutManager(context));
         //为RecyclerView设置分割线(这个可以对DividerItemDecoration进行修改，自定义)
-//        recommendRecyclerview.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        //        recommendRecyclerview.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         recommendRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        RecommendAppAdapter recommendAppAdapter = new RecommendAppAdapter(datas, context);
+        IndexMultiAdapter recommendAppAdapter = new IndexMultiAdapter(context, datas);
         recommendRecyclerview.setAdapter(recommendAppAdapter);
     }
 
@@ -87,13 +89,13 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
         presenter.requestDatas();
     }
 
-    @Override
-    public void showNoData() {
-        Toast.makeText(context, "暂时无数据...", Toast.LENGTH_SHORT).show();
-    }
+    //    @Override
+    //    public void showNoData() {
+    //        Toast.makeText(context, "暂时无数据...", Toast.LENGTH_SHORT).show();
+    //    }
 
     @Override
-    public void showResult(List<AppInfo> datas) {
+    public void showResult(IndexBean datas) {
         initRecycler(datas);
     }
 }
