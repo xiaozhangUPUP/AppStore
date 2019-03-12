@@ -27,6 +27,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
         ImageView imgView = helper.getView(R.id.img_app_icon);
         Glide.with(imgView.getContext()).load(baseImgUrl + item.getIcon()).into(imgView);
         helper.setText(R.id.txt_app_name, item.getDisplayName())
-                .setText(R.id.txt_brief, item.getBriefShow());
+                .setText(R.id.txt_brief, item.getBriefShow())
+                .setText(R.id.txt_category, item.getLevel1CategoryName());
     }
 }

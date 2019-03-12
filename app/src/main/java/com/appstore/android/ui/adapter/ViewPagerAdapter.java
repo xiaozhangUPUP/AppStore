@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.appstore.android.bean.FragmentInfo;
 import com.appstore.android.ui.fragment.CategoryFragment;
 import com.appstore.android.ui.fragment.GamesFragment;
-import com.appstore.android.ui.fragment.RankingFragment;
+import com.appstore.android.ui.fragment.TopListFragment;
 import com.appstore.android.ui.fragment.RecommendFragment;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private void initFragments() {
         fragments.add(new FragmentInfo("推荐", RecommendFragment.class));
-        fragments.add(new FragmentInfo("排行", RankingFragment.class));
+        fragments.add(new FragmentInfo("排行", TopListFragment.class));
         fragments.add(new FragmentInfo("游戏", GamesFragment.class));
         fragments.add(new FragmentInfo("分类", CategoryFragment.class));
     }

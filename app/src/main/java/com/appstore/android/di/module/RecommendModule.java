@@ -1,13 +1,10 @@
 package com.appstore.android.di.module;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.support.v4.app.Fragment;
 
-import com.appstore.android.data.RecommendModel;
+import com.appstore.android.data.AppInfoModel;
 import com.appstore.android.data.http.ApiService;
-import com.appstore.android.presenter.RecommendPresenter;
-import com.appstore.android.presenter.contract.RecommendContract;
+import com.appstore.android.presenter.contract.AppInfoContract;
 import com.appstore.android.ui.fragment.RecommendFragment;
 
 import dagger.Module;
@@ -20,30 +17,30 @@ import dagger.Provides;
 @Module
 public class RecommendModule {
 
-    private RecommendContract.View view;
+    private AppInfoContract.View view;
 
-    public RecommendModule(RecommendContract.View view) {
+    public RecommendModule(AppInfoContract.View view) {
         this.view = view;
     }
 
     @Provides
-    public RecommendContract.View provideView() {
+    public AppInfoContract.View provideView() {
         return view;
     }
 
     //    @Provides
-    //    public RecommendPresenter providePresenter(RecommendContract.View view, RecommendModel model) {
+    //    public RecommendPresenter providePresenter(AppInfoContract.View view, AppInfoModel model) {
     //        return new RecommendPresenter(model, view);
     //    }
 
     @Provides
-    public ProgressDialog provideProgressDialog(RecommendContract.View view) {
+    public ProgressDialog provideProgressDialog(AppInfoContract.View view) {
         return new ProgressDialog(((RecommendFragment) view).getActivity());
     }
 
     @Provides
-    public RecommendModel provideModel(ApiService apiService) {
-        return new RecommendModel(apiService);
+    public AppInfoModel provideModel(ApiService apiService) {
+        return new AppInfoModel(apiService);
     }
 
 }

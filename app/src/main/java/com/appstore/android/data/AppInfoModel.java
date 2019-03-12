@@ -13,10 +13,10 @@ import rx.Observable;
 /**
  * Created by zhangqi on 2019/2/20
  */
-public class RecommendModel {
+public class AppInfoModel {
     private ApiService apiService;
 
-    public RecommendModel(ApiService apiService) {
+    public AppInfoModel(ApiService apiService) {
         this.apiService = apiService;
     }
 
@@ -38,4 +38,8 @@ public class RecommendModel {
         return apiService.index();
     }
 
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(int page) {
+
+        return apiService.topList(page);
+    }
 }
