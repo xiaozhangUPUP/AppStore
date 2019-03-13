@@ -3,16 +3,17 @@ package com.appstore.android.di.module;
 import com.appstore.android.data.AppInfoModel;
 import com.appstore.android.data.http.ApiService;
 import com.appstore.android.presenter.contract.AppInfoContract;
+import com.appstore.android.ui.adapter.AppInfoAdapter;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class TopListModule {
+public class AppInfoModule {
 
     private AppInfoContract.AppInfoView view;
 
-    public TopListModule(AppInfoContract.AppInfoView view) {
+    public AppInfoModule(AppInfoContract.AppInfoView view) {
         this.view = view;
     }
 
@@ -25,4 +26,5 @@ public class TopListModule {
     public AppInfoModel provideModel(ApiService apiService) {
         return new AppInfoModel(apiService);
     }
+
 }

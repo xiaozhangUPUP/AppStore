@@ -94,7 +94,10 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             navIconViewHolder.layoutHotSubject.setOnClickListener(this);
         } else {
             AppViewHolder appViewHolder = (AppViewHolder) viewHolder;
-            AppInfoAdapter appInfoAdapter = new AppInfoAdapter();
+            AppInfoAdapter appInfoAdapter = AppInfoAdapter
+                    .builder()
+                    .showCategoryName(true)
+                    .build();
             if (appViewHolder.viewType == TYPE_APPS) {
                 appViewHolder.text.setText(R.string.hot_app);
                 appInfoAdapter.addData(indexBean.getRecommendApps());
