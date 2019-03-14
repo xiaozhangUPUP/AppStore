@@ -33,4 +33,7 @@
     <string name="hot_game">热门游戏</string>
     <string name="hot_top">热门主题</string>
     <string name="hot_app">热门应用</string>
+    <string name="mobi">手机号</string>
+    <string name="password">密码</string>
+    <string name="login">登陆</string>
 </resources>
