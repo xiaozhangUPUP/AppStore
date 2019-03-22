@@ -3,6 +3,7 @@ package com.appstore.android.data.http;
 import com.appstore.android.bean.AppInfo;
 import com.appstore.android.bean.BaseBean;
 import com.appstore.android.bean.IndexBean;
+import com.appstore.android.bean.LoginBean;
 import com.appstore.android.bean.PageBean;
 import com.appstore.android.bean.requestbean.LoginRequestBean;
 
@@ -23,7 +24,7 @@ public interface ApiService {
     public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
 
     @POST("login")
-    public Observable<BaseBean> login(@Body LoginRequestBean requestBean);
+    public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean requestBean);
 
     @GET("index")
     public  Observable<BaseBean<IndexBean>> index();

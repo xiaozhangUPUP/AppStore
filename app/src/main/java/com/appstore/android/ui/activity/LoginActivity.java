@@ -8,7 +8,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.appstore.android.R;
+import com.appstore.android.bean.LoginBean;
 import com.appstore.android.di.component.AppComponent;
+import com.appstore.android.di.component.DaggerLoginComponent;
+import com.appstore.android.di.module.LoginModule;
+import com.appstore.android.presenter.LoginPresenter;
+import com.appstore.android.presenter.contract.LoginContract;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -18,7 +23,7 @@ import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func2;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.tool_bar)
     Toolbar toolBar;
@@ -42,7 +47,11 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerLoginComponent.builder()
+                .appComponent(appComponent)
+                .loginModule(new LoginModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -75,4 +84,34 @@ public class LoginActivity extends BaseActivity {
         return password.length() >= 6;
     }
 
+    @Override
+    public void checkPhoneError() {
+        viewMobiWrapper.setError("手机号格式不正确");
+    }
+
+    @Override
+    public void checkPhoneSuccess() {
+        viewMobiWrapper.setError("");
+        viewMobiWrapper.setErrorEnabled(false);
+    }
+
+    @Override
+    public void loginSuccess(LoginBean bean) {
+        finish();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
 }
