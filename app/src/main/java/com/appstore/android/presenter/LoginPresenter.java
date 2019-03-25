@@ -15,6 +15,7 @@ import com.appstore.android.data.AppInfoModel;
 import com.appstore.android.data.LoginModel;
 import com.appstore.android.presenter.contract.AppInfoContract;
 import com.appstore.android.presenter.contract.LoginContract;
+import com.hwangjr.rxbus.RxBus;
 
 import javax.inject.Inject;
 
@@ -49,6 +50,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, LoginContract.View
                     public void onNext(LoginBean loginBean) {
                         view.loginSuccess(loginBean);
                         saveUser(loginBean);
+                        RxBus.get().post(loginBean.getUser());
                     }
                 });
 

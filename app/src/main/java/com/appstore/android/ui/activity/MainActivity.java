@@ -14,8 +14,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.appstore.android.R;
+import com.appstore.android.bean.User;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.ui.adapter.ViewPagerAdapter;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +35,7 @@ public class MainActivity extends BaseActivity {
     TabLayout tablayout;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +55,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+
+        RxBus.get().register(this);
+
         initDrawerLayout();
 
         initTabLayout();
+    }
+
+    @Subscribe
+    public void getUser(User user) {
+
     }
 
     private void initTabLayout() {
@@ -63,7 +75,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initDrawerLayout() {
-        View headerView = navigationView.getHeaderView(0);
+        headerView = navigationView.getHeaderView(0);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,15 +88,6 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 switch (menuItem.getItemId()) {
-                    case R.id.left_menu_app_update:
-                        Toast.makeText(MainActivity.this, "click left_menu_app_update", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.left_menu_msg:
-                        Toast.makeText(MainActivity.this, "click left_menu_msg", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.left_menu_setting:
-                        Toast.makeText(MainActivity.this, "click left_menu_setting", Toast.LENGTH_SHORT).show();
-                        break;
 
                 }
                 return false;
@@ -95,5 +98,11 @@ public class MainActivity extends BaseActivity {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerlayout, toolbar, R.string.open, R.string.close);
         actionBarDrawerToggle.syncState();
         drawerlayout.addDrawerListener(actionBarDrawerToggle);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.get().unregister(this);
     }
 }
