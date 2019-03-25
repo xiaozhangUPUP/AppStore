@@ -24,7 +24,7 @@ public class LoginModel {
     public Observable<BaseBean<LoginBean>> login(String phone, String pwd) {
 
         LoginRequestBean param = new LoginRequestBean();
-        param.setPhone(phone);
+        param.setEmail(phone);
         param.setPassWord(pwd);
 
         return apiService.login(param);

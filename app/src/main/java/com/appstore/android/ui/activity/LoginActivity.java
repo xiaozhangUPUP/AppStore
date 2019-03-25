@@ -14,7 +14,9 @@ import com.appstore.android.di.component.DaggerLoginComponent;
 import com.appstore.android.di.module.LoginModule;
 import com.appstore.android.presenter.LoginPresenter;
 import com.appstore.android.presenter.contract.LoginContract;
+import com.appstore.android.ui.adapter.AppInfoAdapter;
 import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxAdapter;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import butterknife.BindView;
@@ -71,6 +73,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             @Override
             public void call(Boolean aBoolean) {
                 RxView.enabled(btnLogin).call(aBoolean);
+            }
+        });
+
+        RxView.clicks(btnLogin).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                presenter.login(txtMobi.getText().toString().trim(), txtPassword.getText().toString().trim());
             }
         });
 

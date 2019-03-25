@@ -2,6 +2,7 @@ package com.appstore.android.common.http;
 
 import android.content.Context;
 import android.content.Entity;
+import android.util.Log;
 
 import com.appstore.android.common.Constants;
 import com.appstore.android.common.util.DensityUtil;
@@ -104,7 +105,6 @@ public class CommonParamsInterceptor implements Interceptor {
                     }
 
                 } else {
-
                     Buffer buffer = new Buffer();
 
                     body.writeTo(buffer);
@@ -114,7 +114,6 @@ public class CommonParamsInterceptor implements Interceptor {
                     rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
                     rootMap.put("publicParams", commonParamsMap); // 重新组装
                     String newJsonParams = gson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
-
 
                     request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
 
