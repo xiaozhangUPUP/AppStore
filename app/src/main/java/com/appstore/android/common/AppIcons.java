@@ -107,7 +107,11 @@ public class AppIcons implements ITypeface {
     public enum Icon implements IIcon {
 
         icon_upadte('\ue8fc'),
-        icon_setting('\ue8b7')
+        icon_setting('\ue8b7'),
+        icon_download('\ue8c6'),
+        icon_uninstall('\ue69b'),
+        icon_default_head_photo('\ue8c9'),
+        icon_logout('\ue600')
         ;
         char character;
 

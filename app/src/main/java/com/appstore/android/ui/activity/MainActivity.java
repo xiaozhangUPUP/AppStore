@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.appstore.android.R;
 import com.appstore.android.bean.User;
+import com.appstore.android.common.AppIcons;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.ui.adapter.ViewPagerAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +84,12 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(MainActivity.this, "click headerView", Toast.LENGTH_SHORT).show();
             }
         });
+
+        navigationView.getMenu().findItem(R.id.menu_app_update).setIcon(new IconicsDrawable(this, AppIcons.Icon.icon_upadte));
+        navigationView.getMenu().findItem(R.id.menu_setting).setIcon(new IconicsDrawable(this, AppIcons.Icon.icon_setting));
+        navigationView.getMenu().findItem(R.id.menu_app_uninstall).setIcon(new IconicsDrawable(this, AppIcons.Icon.icon_uninstall));
+        navigationView.getMenu().findItem(R.id.menu_download_manager).setIcon(new IconicsDrawable(this, AppIcons.Icon.icon_download));
+        navigationView.getMenu().findItem(R.id.menu_logout).setIcon(new IconicsDrawable(this, AppIcons.Icon.icon_logout));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
