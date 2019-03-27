@@ -54,14 +54,17 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
+        <com.appstore.android.ui.widget.LoadingButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@drawable/bg_btn_selector"
             android:enabled="false"
-            android:text="@string/login" />
+            app:text="登陆"
+            app:loadingText="正在登录"
+            app:progressColor="@color/colorAccent"
+            app:textColor="@color/color_w" />
 
     </LinearLayout>
 

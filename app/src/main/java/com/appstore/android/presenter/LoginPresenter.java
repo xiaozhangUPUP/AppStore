@@ -42,8 +42,19 @@ public class LoginPresenter extends BasePresenter<LoginModel, LoginContract.View
                 .compose(RxHttpResponseCompat.<LoginBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<LoginBean>(context) {
                     @Override
-                    public void onCompleted() {
+                    public void onStart() {
+                        view.showLoading();
+                    }
 
+                    @Override
+                    public void onCompleted() {
+                        view.dismissLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        view.dismissLoading();
                     }
 
                     @Override

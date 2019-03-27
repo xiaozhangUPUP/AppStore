@@ -43,4 +43,7 @@
     <string name="sys_setting">系统设置</string>
     <string name="logout">退出登录</string>
 
+    <string name="default_loading">loading</string>
+    <string name="error_token">登陆失效，请重新登陆</string>
+
 </resources>

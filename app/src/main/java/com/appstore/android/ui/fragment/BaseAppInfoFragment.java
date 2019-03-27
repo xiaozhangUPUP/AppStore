@@ -23,7 +23,7 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
     @BindView(R.id.recycler_view)
     RecyclerView recycler_view;
 
-    private int page = 0;
+    protected int page = 0;
 
     private AppInfoAdapter adapter;
 
@@ -68,6 +68,11 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     @Override
     public void onLoadMoreRequested() {
+        presenter.requestData(type(), page);
+    }
+
+    @Override
+    public void onEmptyViewClick() {
         presenter.requestData(type(), page);
     }
 }

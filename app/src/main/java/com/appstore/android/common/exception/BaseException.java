@@ -44,6 +44,10 @@ public class BaseException extends Exception {
     public static final int ERROR_API_ACCOUNT_FREEZE = 10003;
 
 
+    //token 失效
+    public static final int ERROR_TOKEN = 10010;
+
+
     // http
 
     public static final int ERROR_HTTP_400 = 400;

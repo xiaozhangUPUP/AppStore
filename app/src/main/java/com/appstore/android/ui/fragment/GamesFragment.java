@@ -42,4 +42,5 @@ public class GamesFragment extends BaseAppInfoFragment {
     int type() {
         return AppInfoPresenter.GAME;
     }
+
 }

@@ -15,6 +15,7 @@ import com.appstore.android.di.module.LoginModule;
 import com.appstore.android.presenter.LoginPresenter;
 import com.appstore.android.presenter.contract.LoginContract;
 import com.appstore.android.ui.adapter.AppInfoAdapter;
+import com.appstore.android.ui.widget.LoadingButton;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxAdapter;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -38,7 +39,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.view_password_wrapper)
     TextInputLayout viewPasswordWrapper;
     @BindView(R.id.btn_login)
-    Button btnLogin;
+    LoadingButton btnLogin;
     @BindView(R.id.activity_login)
     LinearLayout activityLogin;
 
@@ -111,16 +112,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLoading() {
-
+        btnLogin.showLoading();
     }
 
     @Override
     public void dismissLoading() {
-
+        btnLogin.showButtonText();
     }
 
     @Override
     public void showError(String msg) {
-
+        btnLogin.showButtonText();
     }
 }
