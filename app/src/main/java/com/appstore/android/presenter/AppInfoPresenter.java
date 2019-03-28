@@ -18,13 +18,18 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     public static final int TOP_LIST = 1;
     public static final int GAME = 2;
+    public static final int CATEGORY = 3;
+
+    public static final int FEATURED = 0;
+    public static final int TOPLIST = 1;
+    public static final int NEWLIST = 3;
 
     @Inject
     public AppInfoPresenter(AppInfoModel model, AppInfoContract.AppInfoView view) {
         super(model, view);
     }
 
-    public void requestData (int type, int page) {
+    public void requestData(int type, int page) {
 
         Subscriber subscriber = null;
         if (page == 0) {
@@ -52,22 +57,35 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
         }
 
-        Observable observable = getObservable(type, page);
+        Observable observable = getObservable(type, page, 0, 0);
 
         observable
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(subscriber);
     }
 
-    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type, int page) {
+    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type, int page, int categoryId, int fragType) {
         switch (type) {
             case TOP_LIST:
                 return model.topList(page);
             case GAME:
                 return model.games(page);
+            case CATEGORY:
+                if (fragType == FEATURED) {
+                    return model.getFeaturedAppsByCategory(categoryId, page);
+                } else if (fragType == TOPLIST) {
+                    return model.getTopListAppsByCategory(categoryId, page);
+                } else if (fragType == NEWLIST) {
+                    return model.getNewListAppsByCategory(categoryId, page);
+                }
             default:
                 return Observable.empty();
         }
+
+    }
+
+
+    public void requestCategoryApps(int categoryId, int fragType) {
 
     }
 

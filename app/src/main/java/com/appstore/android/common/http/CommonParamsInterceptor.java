@@ -2,6 +2,7 @@ package com.appstore.android.common.http;
 
 import android.content.Context;
 import android.content.Entity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.appstore.android.bean.User;
@@ -115,12 +116,15 @@ public class CommonParamsInterceptor implements Interceptor {
 
                     String oldJsonParams = buffer.readUtf8();
 
-                    rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
-                    rootMap.put("publicParams", commonParamsMap); // 重新组装
-                    String newJsonParams = gson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
+                    if (!TextUtils.isEmpty(oldJsonParams)) {
+                        rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
+                        if (rootMap != null) {
+                            rootMap.put("publicParams", commonParamsMap); // 重新组装
+                            String newJsonParams = gson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
 
-                    request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
-
+                            request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                        }
+                    }
 
                 }
 

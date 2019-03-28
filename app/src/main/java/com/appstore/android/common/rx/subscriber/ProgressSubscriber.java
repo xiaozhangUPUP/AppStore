@@ -44,6 +44,7 @@ public abstract class ProgressSubscriber<T> extends ErrorHandlerSubscriber<T> {
     @Override
     public void onError(Throwable e) {
         Log.e("6666666666", "onError:-------------------------- ");
+        e.printStackTrace();
         BaseException baseException = mErrorHandler.handleError(e);
         view.showError(baseException.getDisplayMessage());
         mErrorHandler.showErrorMessage(baseException);

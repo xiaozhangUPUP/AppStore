@@ -96,7 +96,7 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
     public void showEmptyView(String msg) {
         showView(R.id.view_empty);
         text_tip.setText(msg);
-        text_tip.append("，点击重试");
+        text_tip.append("，点击屏幕重试");
     }
 
     public void showView(int viewId) {

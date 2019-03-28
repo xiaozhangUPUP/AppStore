@@ -2,6 +2,8 @@ package com.appstore.android.common;
 
 public interface Constants {
 
+    public static  final String BASE_IMG_URL="http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
+
     public static final String IS_SHOW_GUIDE = "is_show_guide";
 
     public static final String MODEL = "model";
@@ -15,4 +17,6 @@ public interface Constants {
 
     public static final String TOKEN ="token" ;
     public static final String USER ="user" ;
+
+    public static final String CATEGORY = "category";
 }

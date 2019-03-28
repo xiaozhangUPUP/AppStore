@@ -3,6 +3,7 @@ package com.appstore.android.ui.activity;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,6 +20,8 @@ import com.appstore.android.ui.widget.LoadingButton;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxAdapter;
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +66,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     private void initView() {
+        toolBar.setNavigationIcon(new IconicsDrawable(this)
+                .icon(Ionicons.Icon.ion_ios_arrow_back)
+                .sizeDp(16).color(getResources().getColor(R.color.md_white_1000)));
+
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         Observable<CharSequence> obMobi = RxTextView.textChanges(txtMobi);
         Observable<CharSequence> obPwd = RxTextView.textChanges(txtPassword);
         Observable.combineLatest(obMobi, obPwd, new Func2<CharSequence, CharSequence, Boolean>() {
