@@ -22,14 +22,23 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     public static final int FEATURED = 0;
     public static final int TOPLIST = 1;
-    public static final int NEWLIST = 3;
+    public static final int NEWLIST = 2;
 
     @Inject
     public AppInfoPresenter(AppInfoModel model, AppInfoContract.AppInfoView view) {
         super(model, view);
     }
 
+
     public void requestData(int type, int page) {
+        request(type, page, 0, 0);
+    }
+
+    public void requestCategoryApps(int categoryId, int page, int fragType) {
+        request(CATEGORY, page, categoryId, fragType);
+    }
+
+    public void request(int type, int page, int categoryId, int fragType) {
 
         Subscriber subscriber = null;
         if (page == 0) {
@@ -57,7 +66,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
         }
 
-        Observable observable = getObservable(type, page, 0, 0);
+        Observable observable = getObservable(type, page, categoryId, fragType);
 
         observable
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
@@ -84,9 +93,5 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     }
 
-
-    public void requestCategoryApps(int categoryId, int fragType) {
-
-    }
 
 }

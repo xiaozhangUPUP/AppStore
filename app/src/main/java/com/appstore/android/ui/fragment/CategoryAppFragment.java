@@ -3,6 +3,8 @@ package com.appstore.android.ui.fragment;
 import android.annotation.SuppressLint;
 
 import com.appstore.android.di.component.AppComponent;
+import com.appstore.android.di.component.DaggerAppInfoComponent;
+import com.appstore.android.di.module.AppInfoModule;
 import com.appstore.android.ui.adapter.AppInfoAdapter;
 
 /**
@@ -31,12 +33,13 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
 
     @Override
     AppInfoAdapter buildAdapter() {
-        return null;
+        return AppInfoAdapter.builder().showBrief(true).build();
     }
 
     @Override
     public void init() {
-        //        initRecyclerView();
+        presenter.requestCategoryApps(categoryId, page, fragmentType);
+        initRecyclerView();
     }
 
     @Override
@@ -46,6 +49,10 @@ public class CategoryAppFragment extends BaseAppInfoFragment {
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerAppInfoComponent.builder()
+                .appComponent(appComponent)
+                .appInfoModule(new AppInfoModule(this))
+                .build()
+                .injectCategoryAppFragment(this);
     }
 }
