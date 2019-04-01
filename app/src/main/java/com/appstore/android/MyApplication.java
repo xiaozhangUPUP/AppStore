@@ -2,6 +2,7 @@ package com.appstore.android;
 
 import android.app.Application;
 import android.content.Context;
+import android.view.View;
 
 import com.appstore.android.common.AppIcons;
 import com.appstore.android.di.component.AppComponent;
@@ -14,6 +15,16 @@ public class MyApplication extends Application {
 
     private AppComponent appComponent;
     private static Context context;
+
+    private View mView;
+
+    public View getView() {
+        return mView;
+    }
+
+    public void setView(View mView) {
+        this.mView = mView;
+    }
 
     public AppComponent getAppComponent() {
         return appComponent;

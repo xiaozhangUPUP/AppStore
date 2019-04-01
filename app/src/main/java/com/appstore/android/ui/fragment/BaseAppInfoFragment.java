@@ -40,6 +40,7 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         recycler_view.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                myApplication.setView(view);
                 startActivity(new Intent(getActivity(), AppDetailActivity.class));
             }
         });
