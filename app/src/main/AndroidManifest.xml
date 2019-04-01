@@ -28,7 +28,10 @@
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppTheme.Notitle.FullScreen" />
         <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.CategoryAppActivity"></activity>
+        <activity android:name=".ui.activity.CategoryAppActivity" />
+        <activity
+            android:name=".ui.activity.AppDetailActivity"
+            android:theme="@style/AppTheme.Transparent"></activity>
     </application>
 
 </manifest>

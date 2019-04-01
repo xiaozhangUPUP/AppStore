@@ -1,8 +1,10 @@
 package com.appstore.android.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.appstore.android.R;
 import com.appstore.android.bean.AppInfo;
@@ -10,8 +12,10 @@ import com.appstore.android.bean.PageBean;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.presenter.AppInfoPresenter;
 import com.appstore.android.presenter.contract.AppInfoContract;
+import com.appstore.android.ui.activity.AppDetailActivity;
 import com.appstore.android.ui.adapter.AppInfoAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import butterknife.BindView;
 
@@ -33,6 +37,12 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         adapter = buildAdapter();
         adapter.setOnLoadMoreListener(this, recycler_view);
         recycler_view.setAdapter(adapter);
+        recycler_view.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(getActivity(), AppDetailActivity.class));
+            }
+        });
 
     }
 
