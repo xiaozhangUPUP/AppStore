@@ -48,7 +48,8 @@ public abstract class ProgressSubscriber<T> extends ErrorHandlerSubscriber<T> {
         BaseException baseException = mErrorHandler.handleError(e);
         view.showError(baseException.getDisplayMessage());
         mErrorHandler.showErrorMessage(baseException);
-        if (baseException.getCode() == BaseException.ERROR_TOKEN) {
+        if (baseException.getCode() == BaseException.ERROR_TOKEN
+                || baseException.getCode() == BaseException.ERROR_TOKEN_2) {
             toLogin();
         }
     }

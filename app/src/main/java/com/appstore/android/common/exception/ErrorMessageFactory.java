@@ -74,6 +74,7 @@ public class ErrorMessageFactory {
                 break;
 
             case ApiException.ERROR_TOKEN:
+            case ApiException.ERROR_TOKEN_2:
                 errorMsg = context.getResources().getString(R.string.error_token);
                 break;
 

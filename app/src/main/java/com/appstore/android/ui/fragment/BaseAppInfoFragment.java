@@ -9,6 +9,7 @@ import android.view.View;
 import com.appstore.android.R;
 import com.appstore.android.bean.AppInfo;
 import com.appstore.android.bean.PageBean;
+import com.appstore.android.common.Constants;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.presenter.AppInfoPresenter;
 import com.appstore.android.presenter.contract.AppInfoContract;
@@ -41,7 +42,10 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 myApplication.setView(view);
-                startActivity(new Intent(getActivity(), AppDetailActivity.class));
+                AppInfo item = (AppInfo) adapter.getItem(position);
+                Intent intent = new Intent(getActivity(), AppDetailActivity.class);
+                intent.putExtra(Constants.APP_INFO_OBJ, item);
+                startActivity(intent);
             }
         });
 

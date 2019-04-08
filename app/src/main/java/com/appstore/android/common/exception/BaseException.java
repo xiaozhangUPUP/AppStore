@@ -47,6 +47,8 @@ public class BaseException extends Exception {
     //token 失效
     public static final int ERROR_TOKEN = 10010;
 
+    public static final int ERROR_TOKEN_2 = 10011;
+
 
     // http
 

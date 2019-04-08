@@ -3,24 +3,22 @@ package com.appstore.android.di.module;
 import com.appstore.android.data.AppInfoModel;
 import com.appstore.android.data.http.ApiService;
 import com.appstore.android.presenter.contract.AppInfoContract;
-import com.appstore.android.ui.adapter.AppInfoAdapter;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = AppModelModule.class)
-public class AppInfoModule {
+public class AppDetailModule {
 
-    private AppInfoContract.AppInfoView view;
+    private AppInfoContract.AppDetailView view;
 
-    public AppInfoModule(AppInfoContract.AppInfoView view) {
+    public AppDetailModule(AppInfoContract.AppDetailView view) {
         this.view = view;
     }
 
     @Provides
-    public AppInfoContract.AppInfoView provideView() {
+    public AppInfoContract.AppDetailView provideView() {
         return view;
     }
-
 
 }

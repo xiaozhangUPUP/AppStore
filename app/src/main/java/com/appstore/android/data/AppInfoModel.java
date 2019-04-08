@@ -65,5 +65,10 @@ public class AppInfoModel {
         return apiService.getNewListAppsByCategory(categoryid, page);
     }
 
+    public Observable<BaseBean<AppInfo>> getAppDetail(int id) {
+
+        return apiService.getAppDetail(id);
+    }
+
 
 }

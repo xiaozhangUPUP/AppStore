@@ -43,7 +43,8 @@ public abstract class ErrorHandlerSubscriber<T> extends BaseSubscriber<T> {
             Log.e("ErrorHandlerSubscriber", e.getMessage());
         } else {
             mErrorHandler.showErrorMessage(exception);
-            if (exception.getCode() == BaseException.ERROR_TOKEN) {
+            if (exception.getCode() == BaseException.ERROR_TOKEN
+                    || exception.getCode() == BaseException.ERROR_TOKEN_2) {
                 toLogin();
             }
         }
