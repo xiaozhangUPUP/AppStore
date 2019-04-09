@@ -38,20 +38,30 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, AppInfo item) {
         ImageView imgView = helper.getView(R.id.img_app_icon);
         Glide.with(imgView.getContext()).load(baseImgUrl + item.getIcon()).into(imgView);
-        helper.setText(R.id.txt_app_name, item.getDisplayName())
-                .setText(R.id.txt_brief, item.getBriefShow());
+        helper.setText(R.id.txt_app_name, item.getDisplayName());
 
         TextView tvPosition = helper.getView(R.id.txt_position);
-        tvPosition.setVisibility(builder.isShowPosition ? View.VISIBLE : View.GONE);
-        tvPosition.setText(item.getPosition() + 1 + ". ");
+        if (tvPosition != null) {
+            tvPosition.setVisibility(builder.isShowPosition ? View.VISIBLE : View.GONE);
+            tvPosition.setText(item.getPosition() + 1 + ". ");
+        }
 
         TextView tvCategory = helper.getView(R.id.txt_category);
-        tvCategory.setVisibility(builder.isShowCategoryName ? View.VISIBLE : View.GONE);
-        tvCategory.setText(item.getLevel1CategoryName());
+        if (tvCategory != null) {
+            tvCategory.setVisibility(builder.isShowCategoryName ? View.VISIBLE : View.GONE);
+            tvCategory.setText(item.getLevel1CategoryName());
+        }
 
         TextView tvBrief = helper.getView(R.id.txt_brief);
-        tvBrief.setVisibility(builder.isShowBrief ? View.VISIBLE : View.GONE);
-        tvBrief.setText(item.getBriefShow());
+        if (tvBrief != null) {
+            tvBrief.setVisibility(builder.isShowBrief ? View.VISIBLE : View.GONE);
+            tvBrief.setText(item.getBriefShow());
+        }
+
+        TextView tvViewSize = helper.getView(R.id.txt_apk_size);
+        if (tvViewSize != null) {
+            tvViewSize.setText(item.getApkSize() / 1024 / 1024 + "MB");
+        }
     }
 
 

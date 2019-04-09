@@ -45,5 +45,6 @@
 
     <string name="default_loading">loading</string>
     <string name="error_token">登陆失效，请重新登陆</string>
+    <string name="download">下载</string>
 
 </resources>

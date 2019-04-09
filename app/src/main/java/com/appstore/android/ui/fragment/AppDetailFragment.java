@@ -2,6 +2,7 @@ package com.appstore.android.ui.fragment;
 
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,14 @@ import android.widget.TextView;
 import com.appstore.android.R;
 import com.appstore.android.bean.AppInfo;
 import com.appstore.android.common.Constants;
+import com.appstore.android.common.util.DateUtils;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.di.component.DaggerAppDetailComponent;
 import com.appstore.android.di.module.AppDetailModule;
+import com.appstore.android.di.module.AppModelModule;
 import com.appstore.android.presenter.AppDetailPresenter;
 import com.appstore.android.presenter.contract.AppInfoContract;
+import com.appstore.android.ui.adapter.AppInfoAdapter;
 import com.bumptech.glide.Glide;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
@@ -56,12 +60,14 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
     RecyclerView recyclerViewRelate;
 
     private int appId;
+    private AppInfoAdapter adapter;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
         DaggerAppDetailComponent.builder()
                 .appComponent(appComponent)
                 .appDetailModule(new AppDetailModule(this))
+                .appModelModule(new AppModelModule())
                 .build()
                 .inject(this);
     }
@@ -81,6 +87,31 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
     @Override
     public void showAppDetail(AppInfo appInfo) {
         showScreenshot(appInfo.getScreenshot());
+        viewIntroduction.setText(appInfo.getIntroduction());
+        txtUpdateTime.setText(DateUtils.formatDate(appInfo.getUpdateTime()));
+        txtApkSize.setText((appInfo.getApkSize() / 1024 / 1024) + " MB");
+        txtVersion.setText(appInfo.getVersionName());
+        txtPublisher.setText(appInfo.getPublisherName());
+        txtPublisher2.setText(appInfo.getPublisherName());
+
+
+        adapter = AppInfoAdapter.builder()
+                .setLayout(R.layout.template_appinfo2)
+                .build();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewSameDev.setLayoutManager(layoutManager);
+        adapter.addData(appInfo.getSameDevAppInfoList());
+        recyclerViewSameDev.setAdapter(adapter);
+
+        adapter = AppInfoAdapter.builder()
+                .setLayout(R.layout.template_appinfo2)
+                .build();
+
+        recyclerViewRelate.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        adapter.addData(appInfo.getRelateAppInfoList());
+        recyclerViewRelate.setAdapter(adapter);
+
     }
 
     private void showScreenshot(String screenshot) {
