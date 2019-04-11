@@ -8,7 +8,8 @@ import com.appstore.android.bean.PageBean;
 import com.appstore.android.bean.requestbean.LoginRequestBean;
 import com.appstore.android.data.http.ApiService;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by zhangqi on 2019/2/20

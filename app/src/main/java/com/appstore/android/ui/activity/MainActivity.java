@@ -20,16 +20,16 @@ import com.appstore.android.R;
 import com.appstore.android.bean.User;
 import com.appstore.android.common.AppIcons;
 import com.appstore.android.common.Constants;
+import com.appstore.android.common.rx.RxBus;
 import com.appstore.android.common.util.ACache;
 import com.appstore.android.di.component.AppComponent;
 import com.appstore.android.ui.adapter.ViewPagerAdapter;
 import com.bumptech.glide.Glide;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends BaseActivity {
@@ -67,7 +67,15 @@ public class MainActivity extends BaseActivity {
     @Override
     public void init() {
 
-        RxBus.get().register(this);
+        //        RxBus.get().register(this);
+        RxBus.getDefault()
+                .toObservable(User.class)
+                .subscribe(new Consumer<User>() {
+                    @Override
+                    public void accept(User user) throws Exception {
+                        initUserHeadPhoto(user);
+                    }
+                });
 
         initDrawerLayout();
 
@@ -76,11 +84,11 @@ public class MainActivity extends BaseActivity {
         initUser();
     }
 
-    @Subscribe
-    public void getUser(User user) {
-        initUserHeadPhoto(user);
-
-    }
+    //    @Subscribe
+    //    public void getUser(User user) {
+    //        initUserHeadPhoto(user);
+    //
+    //    }
 
     private void initUserHeadPhoto(User user) {
         headPhoto.setEnabled(false);
@@ -154,6 +162,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
+        //        RxBus.get().unregister(this);
     }
 }

@@ -78,6 +78,11 @@ public class AppDetailFragment extends ProgressFragment<AppDetailPresenter> impl
     }
 
     @Override
+    public void onEmptyViewClick() {
+        presenter.getAppDetail(appId);
+    }
+
+    @Override
     public void init() {
         Bundle bundle = this.getArguments();
         appId = bundle.getInt(Constants.APP_ID);

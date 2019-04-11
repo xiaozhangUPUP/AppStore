@@ -6,9 +6,8 @@ import com.appstore.android.bean.IndexBean;
 import com.appstore.android.bean.PageBean;
 import com.appstore.android.data.http.ApiService;
 
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by zhangqi on 2019/2/20

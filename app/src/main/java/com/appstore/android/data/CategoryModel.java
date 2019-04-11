@@ -8,7 +8,8 @@ import com.appstore.android.data.http.ApiService;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by zhangqi on 2019/2/20

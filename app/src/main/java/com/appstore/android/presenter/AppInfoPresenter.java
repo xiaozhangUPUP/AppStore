@@ -11,8 +11,10 @@ import com.appstore.android.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {
 
@@ -40,7 +42,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
     public void request(int type, int page, int categoryId, int fragType) {
 
-        Subscriber subscriber = null;
+        Observer subscriber = null;
         if (page == 0) {
             // 第一页显示loading -----
             subscriber = new ProgressSubscriber<PageBean<AppInfo>>(context, view) {
@@ -53,9 +55,14 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
             // 加载下一页
             subscriber = new ErrorHandlerSubscriber<PageBean<AppInfo>>(context) {
                 @Override
-                public void onCompleted() {
+                public void onComplete() {
 
                     view.onLoadMoreComplete();
+                }
+
+                @Override
+                public void onSubscribe(Disposable d) {
+
                 }
 
                 @Override

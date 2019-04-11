@@ -17,17 +17,18 @@ import com.appstore.android.presenter.LoginPresenter;
 import com.appstore.android.presenter.contract.LoginContract;
 import com.appstore.android.ui.adapter.AppInfoAdapter;
 import com.appstore.android.ui.widget.LoadingButton;
-import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxbinding.widget.RxAdapter;
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding2.InitialValueObservable;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
+import io.reactivex.Observable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
 import rx.functions.Action1;
-import rx.functions.Func2;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
@@ -76,23 +77,34 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 finish();
             }
         });
-        Observable<CharSequence> obMobi = RxTextView.textChanges(txtMobi);
-        Observable<CharSequence> obPwd = RxTextView.textChanges(txtPassword);
-        Observable.combineLatest(obMobi, obPwd, new Func2<CharSequence, CharSequence, Boolean>() {
+        InitialValueObservable<CharSequence> obMobi = RxTextView.textChanges(txtMobi);
+        InitialValueObservable<CharSequence> obPwd = RxTextView.textChanges(txtPassword);
+        //        Observable.combineLatest(obMobi, obPwd, new Func2<CharSequence, CharSequence, Boolean>() {
+        //            @Override
+        //            public Boolean call(CharSequence mobi, CharSequence pwd) {
+        //                return isPhoneValid(mobi.toString()) && isPasswordValid(pwd.toString());
+        //            }
+        //        }).subscribe(new Action1<Boolean>() {
+        //            @Override
+        //            public void call(Boolean aBoolean) {
+        //                RxView.enabled(btnLogin).call(aBoolean);
+        //            }
+        //        });
+        Observable.combineLatest(obMobi, obPwd, new BiFunction<CharSequence, CharSequence, Boolean>() {
             @Override
-            public Boolean call(CharSequence mobi, CharSequence pwd) {
+            public Boolean apply(CharSequence mobi, CharSequence pwd) throws Exception {
                 return isPhoneValid(mobi.toString()) && isPasswordValid(pwd.toString());
             }
-        }).subscribe(new Action1<Boolean>() {
+        }).subscribe(new Consumer<Boolean>() {
             @Override
-            public void call(Boolean aBoolean) {
-                RxView.enabled(btnLogin).call(aBoolean);
+            public void accept(Boolean aBoolean) throws Exception {
+                RxView.enabled(btnLogin).accept(aBoolean);
             }
         });
 
-        RxView.clicks(btnLogin).subscribe(new Action1<Void>() {
+        RxView.clicks(btnLogin).subscribe(new Consumer<Object>() {
             @Override
-            public void call(Void aVoid) {
+            public void accept(Object o) throws Exception {
                 presenter.login(txtMobi.getText().toString().trim(), txtPassword.getText().toString().trim());
             }
         });

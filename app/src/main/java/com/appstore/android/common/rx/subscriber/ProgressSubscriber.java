@@ -9,6 +9,8 @@ import com.appstore.android.common.exception.BaseException;
 import com.appstore.android.ui.BaseView;
 import com.appstore.android.ui.activity.LoginActivity;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by zhangqi on 2019/3/4
  */
@@ -27,16 +29,15 @@ public abstract class ProgressSubscriber<T> extends ErrorHandlerSubscriber<T> {
     }
 
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
         Log.e("6666666666", "onStart:-------------------------- ");
         if (isShowDialog()) {
             view.showLoading();
         }
-
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         Log.e("6666666666", "onCompleted:-------------------------- ");
         view.dismissLoading();
     }

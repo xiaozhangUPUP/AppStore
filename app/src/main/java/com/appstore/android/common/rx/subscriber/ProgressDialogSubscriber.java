@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 
 import com.appstore.android.common.rx.RxErrorHandler;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by zhangqi on 2019/3/4
  */
@@ -26,7 +28,7 @@ public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber
     }
 
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
         Log.e("6666666666", "onStart:-------------------------- ");
         if (isShowDialog()) {
             showProgressDialog();
@@ -35,7 +37,7 @@ public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         Log.e("6666666666", "onCompleted:-------------------------- ");
         dismissProgressDialog();
     }
