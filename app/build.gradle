@@ -86,4 +86,5 @@ dependencies {
     implementation 'com.ms-square:expandableTextView:0.1.4'
 
     implementation 'com.zoonref:simple-view-behavior:1.0'
+    implementation project(path: ':rxdownload')
 }
