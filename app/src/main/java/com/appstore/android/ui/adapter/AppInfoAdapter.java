@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.appstore.android.R;
 import com.appstore.android.bean.AppInfo;
+import com.appstore.android.ui.widget.DownloadProgressButton;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -62,6 +63,9 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
         if (tvViewSize != null) {
             tvViewSize.setText(item.getApkSize() / 1024 / 1024 + "MB");
         }
+
+        DownloadProgressButton btn = helper.getView(R.id.btn_download);
+        
     }
 
 
